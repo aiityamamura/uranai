@@ -1,0 +1,42 @@
+export const TEN_GOD_MEANINGS: { name: string; group: string; desc: string }[] = [
+  { name: "比肩", group: "比劫", desc: "自分と同じ気質を持つ星。自立心が強く、対等な関係を好む。" },
+  { name: "劫財", group: "比劫", desc: "比肩に似るが、より競争心が強く、粘り強さと駆け引き上手さを併せ持つ。" },
+  { name: "食神", group: "食傷", desc: "穏やかで表現力豊かな星。楽天的で、衣食住や創作に恵まれやすい。" },
+  { name: "傷官", group: "食傷", desc: "鋭い感性と発想力を持つ星。個性が強く出やすく、独自路線を歩みやすい。" },
+  { name: "偏財", group: "財星", desc: "社交性と行動力の星。人脈を通じて広く財を動かすタイプ。" },
+  { name: "正財", group: "財星", desc: "堅実にコツコツ積み上げる星。計画性があり、安定志向。" },
+  { name: "偏官", group: "官星", desc: "強い行動力と瞬発力を持つ星。プレッシャーに強く、勝負どころで力を発揮。" },
+  { name: "正官", group: "官星", desc: "責任感と秩序を重んじる星。信頼を積み上げ、組織の中で力を発揮しやすい。" },
+  { name: "偏印", group: "印星", desc: "独自の探究心を持つ星。専門性の高い分野や直感的な学びを好む。" },
+  { name: "印綬", group: "印星", desc: "伝統や知識を大切にする星。学びを積み重ね、周囲から頼られやすい。" },
+];
+
+export const JUNI_UN_MEANINGS: { name: string; desc: string }[] = [
+  { name: "長生", desc: "物事の始まり。新しい芽が育っていく段階。" },
+  { name: "沐浴", desc: "産まれたばかりで揺らぎやすい時期。変化や不安定さを含む。" },
+  { name: "冠帯", desc: "成長し、形が整っていく時期。" },
+  { name: "建禄", desc: "自立し、力を発揮し始める充実期。" },
+  { name: "帝旺", desc: "もっとも勢いのある絶頂期。" },
+  { name: "衰", desc: "勢いが落ち着き、円熟に向かう時期。" },
+  { name: "病", desc: "内省が深まる時期。無理をしすぎない配慮が必要。" },
+  { name: "死", desc: "一つの区切り。物事が形を変える転換点。" },
+  { name: "墓", desc: "力を蓄え、次に備える時期。" },
+  { name: "絶", desc: "一度すべてがリセットされる時期。" },
+  { name: "胎", desc: "新しい可能性が宿る、始まりの兆し。" },
+  { name: "養", desc: "次の成長に向けて力を養う時期。" },
+];
+
+export const WUXING_MEANINGS: { name: string; color: string; desc: string }[] = [
+  { name: "木", color: "wood", desc: "成長・発展・柔軟性。伸びていく力を象徴する。" },
+  { name: "火", color: "fire", desc: "情熱・表現力・スピード。物事を照らし、活性化させる力。" },
+  { name: "土", color: "earth", desc: "安定・信頼・受容力。物事をまとめ、育む力。" },
+  { name: "金", color: "metal", desc: "意志・決断力・美意識。物事を研ぎ澄ませる力。" },
+  { name: "水", color: "water", desc: "知性・柔軟性・流動性。物事を巡らせ、深める力。" },
+];
+
+export const PILLAR_MEANINGS: { label: string; period: string; desc: string }[] = [
+  { label: "年柱", period: "〜20歳ごろ", desc: "家系や生まれ育った環境、若年期の運勢を映す柱。" },
+  { label: "月柱", period: "20〜40歳ごろ", desc: "社会性や仕事運を映す柱。生まれ持った性格の核ともされる。" },
+  { label: "日柱", period: "40〜60歳ごろ", desc: "自分自身の本質、配偶者との関係を映す柱。命式の中心。" },
+  { label: "時柱", period: "60歳ごろ〜", desc: "晩年の運勢、子どもとの関係、内に秘めた才能を映す柱。" },
+];

@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-mincho: "Shippori Mincho", serif;
+  --font-gothic: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(200, 161, 90, 0.10), transparent 42%),
+    radial-gradient(circle at 88% 18%, rgba(184, 68, 47, 0.08), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(74, 107, 138, 0.10), transparent 45%);
+}
+
+/* 五行の色チップ */
+.el-木 { color: #7fae7f; }
+.el-火 { color: #e08a75; }
+.el-土 { color: #d9b878; }
+.el-金 { color: #c3cbd3; }
+.el-水 { color: #8fb1cf; }
+
+.bg-el-木 { background-color: #5c8a5c; }
+.bg-el-火 { background-color: #c1503f; }
+.bg-el-土 { background-color: #b98a4a; }
+.bg-el-金 { background-color: #9aa3ad; }
+.bg-el-水 { background-color: #4a6b8a; }
+
+/* 印鑑風のスタンプ枠 */
+.seal-frame {
+  border: 1.5px solid rgba(200, 161, 90, 0.55);
+  box-shadow: inset 0 0 0 3px rgba(200, 161, 90, 0.12);
+}
+
+::selection {
+  background: rgba(200, 161, 90, 0.35);
+}
+
+/* スクロールバー（ダーク基調に合わせる） */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 161, 90, 0.35);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
