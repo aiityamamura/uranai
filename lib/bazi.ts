@@ -379,11 +379,13 @@ export function calculateBazi(input: BaziInput): BaziResult {
     .map((d: any) => {
       const gz: string = d.getGanZhi();
       const zhi = gz ? gz.charAt(1) : "";
+      const startYear: number = d.getStartYear();
+      const endYear: number = d.getEndYear();
       return {
-        startAge: d.getStartAge(),
-        endAge: d.getEndAge(),
-        startYear: d.getStartYear(),
-        endYear: d.getEndYear(),
+        startAge: startYear - input.year, // 満年齢（その年に誕生日を迎えて到達する年齢）
+        endAge: endYear - input.year,
+        startYear,
+        endYear,
         ganZhi: gz,
         juniUn: gz ? diShiFor(dayGan, zhi) : "",
         shiShen: gz ? shiShenFor(dayGan, gz.charAt(0)) : "",
