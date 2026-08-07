@@ -34,6 +34,15 @@ export const WUXING_MEANINGS: { name: string; color: string; desc: string }[] = 
   { name: "水", color: "water", desc: "知性・柔軟性・流動性。物事を巡らせ、深める力。" },
 ];
 
+export const ZHI_RELATION_MEANINGS: { name: string; desc: string }[] = [
+  { name: "支合", desc: "地支同士が結びつき、穏やかに調和する組み合わせ。協力関係やご縁の強まりを表す。" },
+  { name: "冲", desc: "正反対の地支同士がぶつかり合う、もっとも作用の強い組み合わせ。変化・移動・衝突を表す。" },
+  { name: "刑", desc: "地支同士が牽制し合う組み合わせ。トラブルやストレス、行き過ぎ・無理を表すとされる。" },
+  { name: "害", desc: "地支同士がわずかに邪魔をし合う組み合わせ。冲や刑より作用は穏やかとされる。" },
+  { name: "破", desc: "地支同士の結びつきを壊す組み合わせ。作用は軽微とされ、重視しない流派も多い。" },
+  { name: "空亡", desc: "日柱を基準とした「天中殺」にあたる地支が巡る時期。頑張りが結果に出づらい代わりに、力を抜いてよい時期ともされる。" },
+];
+
 export const PILLAR_MEANINGS: { label: string; period: string; desc: string }[] = [
   { label: "年柱", period: "〜20歳ごろ", desc: "家系や生まれ育った環境、若年期の運勢を映す柱。" },
   { label: "月柱", period: "20〜40歳ごろ", desc: "社会性や仕事運を映す柱。生まれ持った性格の核ともされる。" },

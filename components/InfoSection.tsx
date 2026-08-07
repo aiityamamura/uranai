@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { TEN_GOD_MEANINGS, JUNI_UN_MEANINGS, WUXING_MEANINGS, PILLAR_MEANINGS } from "@/lib/constants";
+import {
+  TEN_GOD_MEANINGS,
+  JUNI_UN_MEANINGS,
+  WUXING_MEANINGS,
+  PILLAR_MEANINGS,
+  ZHI_RELATION_MEANINGS,
+} from "@/lib/constants";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -45,6 +51,20 @@ export default function InfoSection() {
             </div>
           ))}
         </div>
+      </Section>
+
+      <Section title="支合・冲・破・害・刑・空亡の意味">
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          {ZHI_RELATION_MEANINGS.map((r) => (
+            <div key={r.name} className="flex gap-3 rounded-sm bg-sumi-800/50 p-3">
+              <span className="w-14 shrink-0 font-mincho text-sm text-gold-light">{r.name}</span>
+              <span className="text-sm leading-relaxed text-washi-100/85">{r.desc}</span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-[11px] leading-relaxed text-washi-200/50">
+          大運・年運・月運の表にある「命式との関係」は、それぞれの干支の地支が、命式の年支・月支・日支・時支に対してこれらの関係にあるかを示しています。
+        </p>
       </Section>
 
       <Section title="十二運の意味">

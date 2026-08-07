@@ -128,6 +128,85 @@ function shiShenFor(dayGan: string, otherGan: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// 地支の関係（支合・冲・破・害・刑・空亡）
+// ---------------------------------------------------------------------------
+
+const LIUHE: Record<string, string> = {
+  子: "丑", 丑: "子", 寅: "亥", 亥: "寅", 卯: "戌", 戌: "卯",
+  辰: "酉", 酉: "辰", 巳: "申", 申: "巳", 午: "未", 未: "午",
+};
+const CHONG: Record<string, string> = {
+  子: "午", 午: "子", 丑: "未", 未: "丑", 寅: "申", 申: "寅",
+  卯: "酉", 酉: "卯", 辰: "戌", 戌: "辰", 巳: "亥", 亥: "巳",
+};
+const HAI: Record<string, string> = {
+  子: "未", 未: "子", 丑: "午", 午: "丑", 寅: "巳", 巳: "寅",
+  卯: "辰", 辰: "卯", 申: "亥", 亥: "申", 酉: "戌", 戌: "酉",
+};
+const PO: Record<string, string> = {
+  子: "酉", 酉: "子", 丑: "辰", 辰: "丑", 寅: "亥", 亥: "寅",
+  卯: "午", 午: "卯", 巳: "申", 申: "巳", 未: "戌", 戌: "未",
+};
+// 三刑グループ（同グループ内の異なる2支が揃うと成立。丑戌未＝恃勢の刑、寅巳申＝無恩の刑）
+const SANXING_GROUPS: string[][] = [
+  ["寅", "巳", "申"],
+  ["丑", "戌", "未"],
+];
+// 子卯の刑（無礼の刑、2支のペア）
+const ZIMAO_PAIR: [string, string] = ["子", "卯"];
+// 自刑（同じ地支同士で成立）
+const JIXING_SELF = ["辰", "午", "酉", "亥"];
+
+export interface NatalZhiRef {
+  label: string; // 例: "年柱"
+  zhi: string;
+}
+
+/** 大運・年運・月運の地支が、命式の四支（および空亡）とどんな関係にあるかをまとめて返す。
+ *  同じ関係タイプは対象の柱をまとめて1件で表示する（例: 「支合(月・時)」）。 */
+function getZhiRelations(flowingZhi: string, natalZhis: NatalZhiRef[], xunKongChars: string[]): string[] {
+  const byType: Record<string, string[]> = {};
+  const add = (type: string, shortLabel: string) => {
+    (byType[type] ??= []).push(shortLabel);
+  };
+
+  for (const n of natalZhis) {
+    const shortLabel = n.label.charAt(0); // "年柱" -> "年"
+    if (LIUHE[flowingZhi] === n.zhi) add("支合", shortLabel);
+    if (CHONG[flowingZhi] === n.zhi) add("冲", shortLabel);
+    if (HAI[flowingZhi] === n.zhi) add("害", shortLabel);
+    if (PO[flowingZhi] === n.zhi) add("破", shortLabel);
+
+    if (flowingZhi === n.zhi && JIXING_SELF.includes(flowingZhi)) {
+      add("自刑", shortLabel);
+    } else {
+      for (const grp of SANXING_GROUPS) {
+        if (flowingZhi !== n.zhi && grp.includes(flowingZhi) && grp.includes(n.zhi)) {
+          add("刑", shortLabel);
+        }
+      }
+      if (
+        (flowingZhi === ZIMAO_PAIR[0] && n.zhi === ZIMAO_PAIR[1]) ||
+        (flowingZhi === ZIMAO_PAIR[1] && n.zhi === ZIMAO_PAIR[0])
+      ) {
+        add("刑", shortLabel);
+      }
+    }
+  }
+
+  const order = ["支合", "冲", "刑", "自刑", "害", "破"];
+  const result: string[] = [];
+  for (const type of order) {
+    const targets = byType[type];
+    if (targets && targets.length) {
+      result.push(`${type}(${Array.from(new Set(targets)).join("・")})`);
+    }
+  }
+  if (xunKongChars.includes(flowingZhi)) result.push("空亡");
+  return result;
+}
+
+// ---------------------------------------------------------------------------
 // 型定義
 // ---------------------------------------------------------------------------
 
@@ -149,6 +228,7 @@ export interface DaYunRow {
   ganZhi: string;
   juniUn: string;
   shiShen: string;
+  relations: string[];
 }
 
 export interface LiuNianRow {
@@ -157,6 +237,7 @@ export interface LiuNianRow {
   ganZhi: string;
   juniUn: string;
   shiShen: string;
+  relations: string[];
 }
 
 export interface LiuYueRow {
@@ -164,6 +245,7 @@ export interface LiuYueRow {
   ganZhi: string;
   juniUn: string;
   shiShen: string;
+  relations: string[];
 }
 
 export interface BaziResult {
@@ -248,6 +330,12 @@ export function calculateBazi(input: BaziInput): BaziResult {
 
   // 空亡（日柱の旬空を採用）
   const xunKong: string = ec.getDayXunKong();
+  const xunKongChars = xunKong.split("");
+
+  // 命式の四支（大運・年運・月運との関係判定に使用。時柱が不明な場合は含めない）
+  const natalZhis: NatalZhiRef[] = pillars
+    .filter((p) => p.zhi)
+    .map((p) => ({ label: p.label, zhi: p.zhi as string }));
 
   // 陰陽バランス
   const yinYangCount = { 陽: 0, 陰: 0 };
@@ -290,14 +378,16 @@ export function calculateBazi(input: BaziInput): BaziResult {
     .filter((d: any) => d.getIndex() > 0)
     .map((d: any) => {
       const gz: string = d.getGanZhi();
+      const zhi = gz ? gz.charAt(1) : "";
       return {
         startAge: d.getStartAge(),
         endAge: d.getEndAge(),
         startYear: d.getStartYear(),
         endYear: d.getEndYear(),
         ganZhi: gz,
-        juniUn: gz ? diShiFor(dayGan, gz.charAt(1)) : "",
+        juniUn: gz ? diShiFor(dayGan, zhi) : "",
         shiShen: gz ? shiShenFor(dayGan, gz.charAt(0)) : "",
+        relations: gz ? getZhiRelations(zhi, natalZhis, xunKongChars) : [],
       };
     });
 
@@ -313,10 +403,11 @@ export function calculateBazi(input: BaziInput): BaziResult {
     const z = refLunar.getYearZhiExact();
     liuNian.push({
       year: y,
-      age: y - input.year + 1,
+      age: y - input.year, // 満年齢（その年に誕生日を迎えて到達する年齢）
       ganZhi: g + z,
       juniUn: diShiFor(dayGan, z),
       shiShen: shiShenFor(dayGan, g),
+      relations: getZhiRelations(z, natalZhis, xunKongChars),
     });
   }
 
@@ -331,6 +422,7 @@ export function calculateBazi(input: BaziInput): BaziResult {
       ganZhi: g + z,
       juniUn: diShiFor(dayGan, z),
       shiShen: shiShenFor(dayGan, g),
+      relations: getZhiRelations(z, natalZhis, xunKongChars),
     });
   }
 
