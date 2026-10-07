@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import BirthForm, { BirthFormValues } from "@/components/BirthForm";
 import ChartTable from "@/components/ChartTable";
+import NikkanCard from "@/components/NikkanCard";
 import SummaryPanels from "@/components/SummaryPanels";
 import DaYunTable from "@/components/DaYunTable";
 import LiuNianTable from "@/components/LiuNianTable";
@@ -58,6 +59,10 @@ export default function Home() {
             <div className="seal-frame rounded-sm bg-sumi-900/60 p-5 sm:p-7">
               <ChartTable result={result} />
             </div>
+          </section>
+
+          <section>
+            <NikkanCard dayGan={result.dayGan} />
           </section>
 
           <section>

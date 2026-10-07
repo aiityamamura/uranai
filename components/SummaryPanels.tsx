@@ -1,23 +1,31 @@
 import type { BaziResult, Element5, TenGodGroup } from "@/lib/bazi";
+import { TEN_GOD_GROUP_INFO } from "@/lib/constants";
 
 const EL_ORDER: Element5[] = ["木", "火", "土", "金", "水"];
 const GROUP_ORDER: TenGodGroup[] = ["比劫", "食傷", "財星", "官星", "印星"];
+const GROUP_LABEL: Record<TenGodGroup, string> = Object.fromEntries(
+  TEN_GOD_GROUP_INFO.map((g) => [g.group, g.label])
+) as Record<TenGodGroup, string>;
 
 function BarRow({
   label,
   value,
   max,
   colorClass,
+  labelWidthClass = "w-10",
 }: {
   label: string;
   value: number;
   max: number;
   colorClass: string;
+  labelWidthClass?: string;
 }) {
   const pct = max === 0 ? 0 : Math.max(6, (value / max) * 100);
   return (
     <div className="flex items-center gap-3">
-      <span className="w-10 shrink-0 font-mincho text-sm text-washi-100">{label}</span>
+      <span className={`${labelWidthClass} shrink-0 whitespace-nowrap font-mincho text-sm text-washi-100`}>
+        {label}
+      </span>
       <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-sumi-800">
         <div className={`h-full rounded-full ${colorClass}`} style={{ width: `${pct}%` }} />
       </div>
@@ -89,11 +97,18 @@ export default function SummaryPanels({ result }: { result: BaziResult }) {
       <Card title="通変星のバランス">
         <div className="space-y-2.5">
           {GROUP_ORDER.map((g) => (
-            <BarRow key={g} label={g} value={result.tenGodGroupCount[g]} max={groupMax} colorClass="bg-gold" />
+            <BarRow
+              key={g}
+              label={GROUP_LABEL[g]}
+              value={result.tenGodGroupCount[g]}
+              max={groupMax}
+              colorClass="bg-gold"
+              labelWidthClass="w-16"
+            />
           ))}
         </div>
         <p className="mt-3 text-[11px] leading-relaxed text-washi-200/50">
-          比劫＝比肩・劫財／食傷＝食神・傷官／財星＝偏財・正財／官星＝偏官・正官／印星＝偏印・印綬
+          自我の星＝比肩・劫財／表現の星＝食神・傷官／財の星＝偏財・正財／実行力の星＝偏官・正官／知性の星＝偏印・印綬
         </p>
       </Card>
     </div>
