@@ -129,14 +129,38 @@ export default function InfoSection() {
       </Section>
 
       <Section title="十二運の意味">
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {JUNI_UN_MEANINGS.map((j) => (
             <div key={j.name} className="rounded-sm bg-sumi-800/50 p-3">
-              <p className="font-mincho text-sm text-gold-light">{j.name}</p>
-              <p className="mt-1 text-xs leading-relaxed text-washi-100/80">{j.desc}</p>
+              <p className="font-mincho text-sm text-washi-50">
+                {j.name}（{j.reading}）
+                <span className="ml-2 text-xs text-washi-200/50">{j.stage}</span>
+              </p>
+              <p className="mt-1 text-sm font-medium text-gold-light">{j.catchphrase}</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-washi-100/70">{j.desc}</p>
+              <a
+                href={j.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1.5 inline-block text-[11px] text-gold-light underline underline-offset-2 hover:text-gold"
+              >
+                詳しく見る →
+              </a>
             </div>
           ))}
         </div>
+        <p className="mt-4 text-[11px] leading-relaxed text-washi-200/45">
+          人生のステージになぞらえたエネルギー・一言キーワードは
+          <a
+            href="https://sup.andyou.jp/shicyusuimei/category/juniunsei/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gold-light underline underline-offset-2 hover:text-gold"
+          >
+            優しい四柱推命「十二運星」解説ページ
+          </a>
+          を参考にしています。
+        </p>
       </Section>
 
       <Section title="五行の意味">

@@ -165,19 +165,110 @@ export const TEN_GOD_MEANINGS: {
   },
 ];
 
-export const JUNI_UN_MEANINGS: { name: string; desc: string }[] = [
-  { name: "長生", desc: "物事の始まり。新しい芽が育っていく段階。" },
-  { name: "沐浴", desc: "産まれたばかりで揺らぎやすい時期。変化や不安定さを含む。" },
-  { name: "冠帯", desc: "成長し、形が整っていく時期。" },
-  { name: "建禄", desc: "自立し、力を発揮し始める充実期。" },
-  { name: "帝旺", desc: "もっとも勢いのある絶頂期。" },
-  { name: "衰", desc: "勢いが落ち着き、円熟に向かう時期。" },
-  { name: "病", desc: "内省が深まる時期。無理をしすぎない配慮が必要。" },
-  { name: "死", desc: "一つの区切り。物事が形を変える転換点。" },
-  { name: "墓", desc: "力を蓄え、次に備える時期。" },
-  { name: "絶", desc: "一度すべてがリセットされる時期。" },
-  { name: "胎", desc: "新しい可能性が宿る、始まりの兆し。" },
-  { name: "養", desc: "次の成長に向けて力を養う時期。" },
+export const JUNI_UN_MEANINGS: {
+  name: string;
+  reading: string;
+  stage: string; // 人生になぞらえたステージ名
+  catchphrase: string;
+  desc: string;
+  url: string;
+}[] = [
+  {
+    name: "胎",
+    reading: "たい",
+    stage: "胎児の時期",
+    catchphrase: "新しいことに果敢にチャレンジする",
+    desc: "無限の可能性を秘めた胎児のように、様々な物事を吸収しようとする好奇心旺盛なエネルギー。興味の幅が広く、自然と多方面に才能を発揮しやすい。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/tai/",
+  },
+  {
+    name: "養",
+    reading: "よう",
+    stage: "赤ちゃんの時期",
+    catchphrase: "周囲から可愛がられ、引き立てられる",
+    desc: "あどけない赤ちゃんのような愛らしさを持ち、自然と周囲に守られ、引き立てられるタイプ。大人になっても素直で甘え上手なところがあり、目上の人からかわいがられやすい。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/you/",
+  },
+  {
+    name: "長生",
+    reading: "ちょうせい",
+    stage: "少年期（小学生）の時期",
+    catchphrase: "周囲に合わせ、信頼を集める",
+    desc: "柔軟に周囲や環境へ順応できる器用さを持つ。おおらかに人を受け止める包容力があり、社会の中で信頼を寄せられやすいタイプ。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/tyousei/",
+  },
+  {
+    name: "沐浴",
+    reading: "もくよく",
+    stage: "思春期の時期",
+    catchphrase: "感性が豊かで、自由を求める",
+    desc: "多感で鋭い感受性を持ち、芸術や芸能の分野にセンスを発揮しやすい。海外とも縁を持ちやすく、生涯にわたって自由な生き方を追い求める。精神的なゆとりを保つことが充実の鍵。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/mokuyoku/",
+  },
+  {
+    name: "冠帯",
+    reading: "かんたい",
+    stage: "新成人・新社会人の時期",
+    catchphrase: "明るく人気者だが、言葉には注意",
+    desc: "明るく素直な性格で周囲から人気を集めやすいが、つい余計な一言を口にしてしまうこともあるので配慮が必要。華やかな装いや社交的な生活が運気を後押しする。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/kantai/",
+  },
+  {
+    name: "建禄",
+    reading: "けんろく",
+    stage: "壮年期（働き盛り）の時期",
+    catchphrase: "十二運星の中でも随一の安定感",
+    desc: "十二運の中でもとりわけ安定感があり、慎重に着実に物事を進めるタイプ。誠実な人柄から男女問わず人望を集め、周囲と友好的な関係を築きやすい。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/kenroku/",
+  },
+  {
+    name: "帝旺",
+    reading: "ていおう",
+    stage: "社長・頂点の時期",
+    catchphrase: "強い信念で試練を乗り越える",
+    desc: "信念が強く頑固な一面もあるが、その芯の強さで苦境や試練を乗り越えていく力を持つ。挑戦し続ける生き方がもっとも力を発揮できる道となる。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/teiou/",
+  },
+  {
+    name: "衰",
+    reading: "すい",
+    stage: "老年期の時期",
+    catchphrase: "経験を活かし、的確な判断を下す",
+    desc: "これまでの経験を踏まえ、より良い選択を導き出すことができる。慎重で保守的な面もあるが、言葉に重みがあり、信頼できるアドバイザーとして頼られやすい。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/sui/",
+  },
+  {
+    name: "病",
+    reading: "びょう",
+    stage: "病床の時期",
+    catchphrase: "繊細な感性で芸術に縁がある",
+    desc: "繊細な感性を持つ音楽・芸術肌。どこか浮世離れした雰囲気があり、人への対応は寛大でやわらかい。場を和ませるムードメーカー的な存在になりやすい。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/byou/",
+  },
+  {
+    name: "死",
+    reading: "し",
+    stage: "大きな転機の時期",
+    catchphrase: "完璧主義で、直感が鋭い",
+    desc: "完璧主義で粘り強い努力家。最後まで諦めない強さを持つ。直感が鋭く、人生や生き方について深く考える哲学的な一面もある。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/shi/",
+  },
+  {
+    name: "墓",
+    reading: "ぼ",
+    stage: "蓄える時期",
+    catchphrase: "コツコツ積み上げ、信念を貫く",
+    desc: "先祖や伝統を大切にする慎重派。一度決めたことには忍耐強く向き合い、研究熱心にひとつのことを地道に積み上げていくタイプ。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/bo/",
+  },
+  {
+    name: "絶",
+    reading: "ぜつ",
+    stage: "リセットの時期",
+    catchphrase: "独自の発想力で才能を発揮する",
+    desc: "常識にとらわれない強い想像力を持ち、その力を良い方向に使うか悪い方向に使うかで人生が大きく変わる。時に周囲が驚くような独創的な才能を発揮することもある。",
+    url: "https://sup.andyou.jp/shicyusuimei/juniunsei/zetsu/",
+  },
 ];
 
 export const WUXING_MEANINGS: { name: string; color: string; desc: string }[] = [
